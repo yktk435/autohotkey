@@ -50,7 +50,7 @@ main()
 
 ; <ctrl+p>
 ; Moves cursor one line up
-^p::Send "{Up}"
+; ^p::Send "{Up}"
 
 ; <shift+ctrl+p>
 ; Moves cursor one line up while selecting text
@@ -76,17 +76,9 @@ main()
 ; Moves cursor to the beginning of the current line
 ^a::Send "{Home}"
 
-; <shift+ctrl+a>
-; Moves cursor to the beginning of the current line while selecting text
-+^a::Send "+{Home}"
-
 ; <ctrl+e>
 ; Moves cursor to the end of the current line
 ^e::Send "{End}"
-
-; <shift+ctrl+e>
-; Moves cursor to the end of the current line while selecting text
-+^e::Send "+{End}"
 
 ; <shift+alt+f>
 ; Moves cursor one word forward while selecting text

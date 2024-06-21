@@ -13,12 +13,10 @@
 }
 
 ^j:: Send "{Enter}"
-^t:: {
-    Send "{ESC}"
-    Send "^t"
-    Sleep 50
-    IME_SET(0)
-}
+; ^t:: {
+;     Send "{ESC}^t"
+;     IME_SET(0)
+; }
 ESC:: {
     Send "{ESC}"
     Sleep 50
@@ -31,23 +29,44 @@ ESC:: {
     IME_SET(0)
 }
 ^;:: Send "{F8}"
+^h:: Send "{BS}"
+^n:: Send "{Down}"
+^p:: Send "{Up}"
 ; <ctrl + :>
+; これをコメントアウトするとなぜか ' が ： になってしまう
 LControl & sc028:: Send "{F10}"
+
 #HotIf GetKeyState('F13', 'P')
-c:: Send "^c"
-v:: Send "^v"
-p:: Send "^p"
+n:: Send "^n"
++c:: Send "^+c"
++e:: Send "^+e"
++f:: Send "^+f"
++i:: Send "^+i"
 +p:: Send "^+p"
-l:: Send "^l"
++r:: Send "^+r"
+t:: Send "^t"
++t:: Send "^+t"
++u:: Send "^+u"
++x:: Send "^+x"
 a:: Send "^a"
 b:: Send "^b"
-+e:: Send "^+e"
-+c:: Send "^+c"
-+x:: Send "^+x"
-+i:: Send "^+i"
-+u:: Send "^+u"
-+r:: Send "^+r"
-+t:: Send "^+t"
-+f:: Send "^+f"
+c:: Send "^c"
+f:: Send "^f"
+l:: Send "^l"
+p:: Send "^p"
+v:: Send "^v"
+x:: Send "^x"
+z:: Send "^z"
++z:: Send "^+z"
 w:: Send "^w"
+^v:: Send "#v"
 #HotIf
+
+; k up:: {
+;     if (A_PriorKey == "j") { ; upイベントの中では、この条件で単体押しを検知できる
+;         Send "{ESC}"
+;         IME_SET(0)
+;     }else{
+;         send "k"
+;     }
+; }

@@ -1,27 +1,78 @@
-#Requires AutoHotkey v2.0
+﻿#Requires AutoHotkey v2.0
 
 SetTitleMatchMode "RegEx"
 
-F14 & z::{
-    WinActivate("^ChatGPT.*")
+^Space:: {
+    path := "C:\Program Files\Microsoft VS Code\Code.exe"
+    exeName:="Code.exe"
+    myWinActivate("ahk_exe" exeName)
 
-    return 
+    return
 }
 
-^Space::{
-    WinActivate("ahk_exe Code.exe")
+^+Space:: {
+    myWinActivate(".*Microsoft​ Edge$")
 
-    return 
+    return
 }
 
-+^Space::{
-    WinActivate(".*Google Chrome$")
+LAlt & Space:: {
+    myWinActivateWithClick("ahk_exe powershell.exe")
 
-    return 
+    return
 }
 
-!Space::{
-    WinActivate("ahk_exe powershell.exe")
+#HotIf GetKeyState('F14', 'P')
+s:: {
+    myWinActivate("ahk_exe ms-teams.exe")
 
-    return 
+    return
+}
+
+h:: {
+    myWinActivate("^GitLab.*")
+
+    return
+}
+g:: {
+    myWinActivate("^GitLab.*")
+
+    return
+}
+z:: {
+    myWinActivate("^ChatGPT.*")
+
+    return
+}
+l:: {
+    myWinActivate("ahk_exe thunderbird.exe")
+
+    return
+}
+#HotIf
+
+; ターミナルの場合はクリックしないとちゃんとしたフォーカスにならない
+myWinActivate(arg*) {
+    baseMyWinActivate(false, arg*)
+}
+
+myWinActivateWithClick(arg*) {
+    baseMyWinActivate(true, arg*)
+}
+
+baseMyWinActivate(requiredClick := false, arg*) {
+    if (WinExist(arg*))
+    {
+        if (requiredClick) {
+            WinActivate(arg*)
+            WinGetPos(&X, &Y, &Width, &Height, arg*)
+            Click(((Width - X) // 2) + X, ((Height - Y) // 2) + Y)
+        } else {
+            WinActivate(arg*)
+        }
+    } else {
+        ; Run(arg*)
+        MsgBox "起動してないよ"
+    }
+
 }
