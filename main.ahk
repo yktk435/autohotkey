@@ -3,7 +3,7 @@
 MsgBox "main reloaded!!"
 KeyHistory
 
-^!r::Reload
+^!r:: Reload
 
 #include Lib/functions.ahk
 

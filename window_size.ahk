@@ -2,12 +2,12 @@
 
 moveDisplay(direction) {
     ; アクティブウィンドウを取得
-    activeWindow := WinGetTitle("A")
+    activeWindow := WinGetID("A")
     MonitorGet A_Index, &L, &T, &R, &B
     MonitorGetWorkArea A_Index, &WL, &WT, &WR, &WB
 
-    screenWidth := R
-    screenHeight := B
+    screenWidth := WR
+    screenHeight := WB
     switch direction {
         case 's':
             newWidth := screenWidth // 2
@@ -71,11 +71,11 @@ moveDisplay(direction) {
 {
     moveDisplay('a')
 }
-^+z:: ; Ctrl + Alt + R のホットキー
-{
-    moveDisplay('z')
-}
-^+x:: ; Ctrl + Alt + R のホットキー
+; ^+z:: ; Ctrl + Alt + R のホットキー
+; {
+;     moveDisplay('z')
+; }
+~^+x:: ; Ctrl + Alt + R のホットキー
 {
     moveDisplay('x')
 }

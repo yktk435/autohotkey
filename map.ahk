@@ -23,11 +23,13 @@ ESC:: {
     IME_SET(0)
 }
 ^@:: {
-    Send "{ESC}"
-    Send "^["
+    SendInput "{ESC}"
+    Sleep 50
+    SendInput "^["
     Sleep 50
     IME_SET(0)
 }
+
 ^;:: Send "{F8}"
 ^h:: Send "{BS}"
 ^n:: Send "{Down}"
@@ -37,29 +39,33 @@ ESC:: {
 LControl & sc028:: Send "{F10}"
 
 #HotIf GetKeyState('F13', 'P')
-n:: Send "^n"
 +c:: Send "^+c"
 +e:: Send "^+e"
 +f:: Send "^+f"
 +i:: Send "^+i"
 +p:: Send "^+p"
 +r:: Send "^+r"
-t:: Send "^t"
++s:: Send "^+s"
 +t:: Send "^+t"
 +u:: Send "^+u"
 +x:: Send "^+x"
++z:: Send "^+z"
+^v:: Send "#v"
 a:: Send "^a"
 b:: Send "^b"
 c:: Send "^c"
 f:: Send "^f"
 l:: Send "^l"
+n:: Send "^n"
 p:: Send "^p"
+s:: Send "^s"
+t:: Send "^t"
 v:: Send "^v"
+w:: Send "^w"
 x:: Send "^x"
 z:: Send "^z"
-+z:: Send "^+z"
-w:: Send "^w"
-^v:: Send "#v"
+Right:: Send "{End}"
+Left:: Send "{Home}"
 #HotIf
 
 ; k up:: {
