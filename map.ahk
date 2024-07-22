@@ -39,6 +39,7 @@ ESC:: {
 LControl & sc028:: Send "{F10}"
 
 #HotIf GetKeyState('F13', 'P')
++b:: Send "^+b"
 +c:: Send "^+c"
 +e:: Send "^+e"
 +f:: Send "^+f"
