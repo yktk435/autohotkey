@@ -39,6 +39,10 @@ ESC:: {
 LControl & sc028:: Send "{F10}"
 
 #HotIf GetKeyState('F13', 'P')
++Down:: Send "+^{End}"
++Left:: Send "+{Home}"
++Right:: Send "+{End}"
++Up:: Send "+^{Home}"
 +b:: Send "^+b"
 +c:: Send "^+c"
 +e:: Send "^+e"
@@ -51,6 +55,10 @@ LControl & sc028:: Send "{F10}"
 +u:: Send "^+u"
 +x:: Send "^+x"
 +z:: Send "^+z"
+Down:: Send "^{End}"
+Left:: Send "{Home}"
+Right:: Send "{End}"
+Up:: Send "^{Home}"
 ^v:: Send "#v"
 a:: Send "^a"
 b:: Send "^b"
@@ -65,8 +73,6 @@ v:: Send "^v"
 w:: Send "^w"
 x:: Send "^x"
 z:: Send "^z"
-Right:: Send "{End}"
-Left:: Send "{Home}"
 #HotIf
 
 ; k up:: {
@@ -77,3 +83,6 @@ Left:: Send "{Home}"
 ;         send "k"
 ;     }
 ; }
+
++*Left:: Send "^+{Left}"
++*Right:: Send "^+{Right}"
