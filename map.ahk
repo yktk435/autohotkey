@@ -39,9 +39,9 @@ ESC:: {
 LControl & sc028:: Send "{F10}"
 
 #HotIf GetKeyState('F13', 'P')
+-::SendInput "^-"
+^+;::SendInput "^+;"
 +Down:: Send "+^{End}"
-+Left:: Send "+{Home}"
-+Right:: Send "+{End}"
 +Up:: Send "+^{Home}"
 +b:: Send "^+b"
 +c:: Send "^+c"
@@ -50,11 +50,11 @@ LControl & sc028:: Send "{F10}"
 +i:: Send "^+i"
 +p:: Send "^+p"
 +r:: Send "^+r"
-+s:: Send "^+s"
 +t:: Send "^+t"
 +u:: Send "^+u"
++n:: Send "^+n"
 +x:: Send "^+x"
-+z:: Send "^+z"
++z:: Send "^y" ;進む
 Down:: Send "^{End}"
 Left:: Send "{Home}"
 Right:: Send "{End}"
@@ -68,11 +68,15 @@ l:: Send "^l"
 n:: Send "^n"
 p:: Send "^p"
 s:: Send "^s"
++s:: Send "^+s"
 t:: Send "^t"
 v:: Send "^v"
+m:: Send "^m"
 w:: Send "^w"
 x:: Send "^x"
 z:: Send "^z"
++Left:: Send "+{Home}"
++Right:: Send "+{End}"
 #HotIf
 
 ; k up:: {
@@ -84,5 +88,5 @@ z:: Send "^z"
 ;     }
 ; }
 
-+*Left:: Send "^+{Left}"
-+*Right:: Send "^+{Right}"
++Left:: Send "^+{Left}"
++Right:: Send "^+{Right}"
