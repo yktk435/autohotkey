@@ -1,7 +1,8 @@
 ﻿#Requires AutoHotkey v2.0
 
 MsgBox "main reloaded!!"
-; KeyHistory
+
+KeyHistory
 
 ^!r:: Reload
 
