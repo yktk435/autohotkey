@@ -29,6 +29,7 @@ LAlt & Space:: {
 
 
 #HotIf GetKeyState('F14', 'P')
+
 s:: {
     myWinActivate("ahk_exe ms-teams.exe")
 
@@ -69,6 +70,16 @@ l:: {
 
     return
 }
+
+b:: {
+    Send("{Space}")
+    Send("b")
+    return
+}
+
+Enter:: SendInput "^{Enter}"
+Backspace:: SendInput("{Delete}")
+
 #HotIf
 
 ; ターミナルの場合はクリックしないとちゃんとしたフォーカスにならない
