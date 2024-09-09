@@ -63,7 +63,7 @@ moveDisplay(direction) {
 {
     moveDisplay('e')
 }
-^+s:: ; Ctrl + Alt + R のホットキー
+~^+s:: ; Ctrl + Alt + R のホットキー
 {
     moveDisplay('s')
 }
