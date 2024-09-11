@@ -13,10 +13,7 @@
 }
 
 ^j:: Send "{Enter}"
-; ^t:: {
-;     Send "{ESC}^t"
-;     IME_SET(0)
-; }
+
 ESC:: {
     Send "{ESC}"
     Sleep 50
@@ -39,10 +36,10 @@ ESC:: {
 LControl & sc028:: Send "{F10}"
 
 #HotIf GetKeyState('F13', 'P')
--::SendInput "^-"
-^+;::SendInput "^+;"
-+Down:: Send "+^{End}"
-+Up:: Send "+^{Home}"
+-:: SendInput "^-"
+^+;:: SendInput "^+;"
++Down:: Send "+^{Down}"
++Up:: Send "+^{Up}"
 +b:: Send "^+b"
 +c:: Send "^+c"
 +e:: Send "^+e"
@@ -55,10 +52,10 @@ LControl & sc028:: Send "{F10}"
 +n:: Send "^+n"
 +x:: Send "^+x"
 +z:: Send "^y" ;進む
-Down:: Send "^{End}"
+Down:: Send "^{Down}"
 Left:: Send "{Home}"
 Right:: Send "{End}"
-Up:: Send "^{Home}"
+Up:: Send "^{Up}"
 ^v:: Send "#v"
 a:: Send "^a"
 b:: Send "^b"
@@ -75,8 +72,8 @@ m:: Send "^m"
 w:: Send "^w"
 x:: Send "^x"
 z:: Send "^z"
-+Left:: Send "+{Home}"
-+Right:: Send "+{End}"
++Left:: SendInput "^+{Home}"
++Right:: SendInput "^+{End}"
 #HotIf
 
 ; k up:: {
@@ -88,5 +85,17 @@ z:: Send "^z"
 ;     }
 ; }
 
-+Left:: Send "^+{Left}"
-+Right:: Send "^+{Right}"
+^+Left:: Send "+{Left}"
+^+Right:: Send "+{Right}"
+
+
+; -----------------------------------------------------------
+; macOS 単語移動操作風キーバインド
+; Option+左右 の挙動を再現
+; -----------------------------------------------------------
+
+; 単語単位のカーソル操作
+!Left:: SendInput "^{Left}"
+!Right:: SendInput "^{Right}"
++!Left:: SendInput "^+{Left}"
++!Right:: SendInput "^+{Right}"
