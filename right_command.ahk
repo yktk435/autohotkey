@@ -1,5 +1,35 @@
 ﻿#Requires AutoHotkey v2.0
 
+; findAppPath(appName) {
+;     Found := false
+
+;     ; C:\Program Files を検索
+;     Loop Files, "C:\Program Files\*" . appName . "*.exe", "R"
+;     {
+;         FoundPath := A_LoopFileFullPath
+;         Found := true  ; 見つけたらフラグを更新
+;         break  ; 最初に見つけた edge.exe を取得してループを終了
+;     }
+
+;     ; もし Program Files に見つからなかったら Program Files (x86) を検索
+;     if !Found {
+;         Loop Files, "C:\Program Files (x86)\*" . appName . "*.exe", "R"
+;         {
+;             FoundPath := A_LoopFileFullPath
+;             Found := true  ; 見つけたらフラグを更新
+;             break  ; 最初に見つけた edge.exe を取得してループを終了
+;         }
+;     }
+
+;     ; 結果を表示または実行
+;     if !Found {
+;         MsgBox "Microsoft Edge が見つかりませんでした。"
+;     } else {
+;         MsgBox "見つかったパス: " FoundPath  ; パスを表示
+;         ; Run FoundPath  ; 見つかったパスでアプリケーションを実行
+;     }
+; }
+
 HIDEN_WINDE_IDS := {}
 PREV_WIN_ID := {}
 
@@ -16,13 +46,14 @@ SetTitleMatchMode "RegEx"
 
 ^+Space:: {
     myWinActivate(".*Microsoft​ Edge$")
+; C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
 
     return
 }
 
 LAlt & Space:: {
-    ; myWinActivateForCommandPrompt("ahk_exe powershell.exe")
-    hideToggl(true, "ahk_exe powershell.exe")
+    myWinActivateForCommandPrompt("ahk_exe powershell.exe")
+    ; hideToggl(true, "ahk_exe WindowsTerminal.exe")
 
     return
 }
@@ -98,7 +129,8 @@ baseMyWinActivate(requiredClick := false, arg*) {
             WinActivate(arg*)
             WinGetPos(&X, &Y, &Width, &Height, arg*)
             ;コマンドプロンプト用で作ったけど、なぜか window の高さ、幅が取得できないから決め打ちでクリック
-            Click(((Width - X) // 2) + X, 20)
+            ; Click(((Width - X) // 2) + X, 20)
+            Click(2000 + X, 0)
         } else {
             WinActivate(arg*)
         }
