@@ -45,3 +45,25 @@ logger(text) {
 
     FileAppend logTime " " text "`n",  "\\wsl.localhost\Docker\home\h1yokotsuka\ghq\AutoHotkey\log"
 }
+
+; アクティブなウィンドウIDからプロセスのパスを取得する
+GetActiveWindowProcessPath() {
+    ; アクティブなウィンドウのIDを取得
+    WindowID := WinGetID("A") ; "A" はアクティブウィンドウを示す
+
+    ; アクティブなウィンドウのプロセスIDを取得
+    PID := WinGetPID("ahk_id " WindowID)
+
+    ; プロセスのパスを取得
+    try {
+        Path := ProcessGetPath(PID)
+    } catch {
+        MsgBox("Error: Could not retrieve process path.")
+        return
+    }
+    return Path
+}
+
+; 使用例：アクティブなウィンドウのプロセスパスを表示
+; AppPath := GetActiveWindowProcessPath()
+; logger(AppPath)
