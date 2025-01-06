@@ -1,24 +1,6 @@
 #Requires AutoHotkey v2.0
 #include ./Lib/IMEv2.ahk
 
-set_ignore_applications() {
-    GroupAdd "IgnoreApplications", "ahk_class CASCADIA_HOSTING_WINDOW_CLASS" ; Windows Terminal
-    GroupAdd "IgnoreApplications", "ahk_exe Code.exe" ; Visual Studio Code
-    GroupAdd "IgnoreApplications", "ahk_exe Cursor.exe" ; Cursor AI Editor
-}
-
-main() {
-    ListLines 0
-
-    SetControlDelay 0
-    SetKeyDelay -1
-    SetWinDelay 0
-    SendMode "Input"
-
-    set_ignore_applications()
-}
-
-main()
 #UseHook
 
 ;; Set suspend toggle key "<ctrl>F1"
@@ -134,7 +116,7 @@ ESC:: {
 LControl & sc028:: Send "{F10}"
 
 #HotIf GetKeyState('F13', 'P')
-+i:: SendInput "^+i"
+!i:: SendInput "^+i"
 +Down:: SendInput "^+{End}"
 +Left:: SendInput "^+{Home}"
 +Right:: SendInput "^+{End}"
@@ -163,6 +145,7 @@ a:: SendInput "^a"
 b:: SendInput "^b"
 c:: SendInput "^c"
 f:: SendInput "^f"
+h:: SendInput "^h"
 l:: SendInput "^l"
 m:: SendInput "^m"
 n:: SendInput "^n"
