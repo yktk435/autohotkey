@@ -11,7 +11,7 @@ windowChangeEachApp(reverse := true) {
   activeProcessName := "ahk_exe" WinGetProcessName("A")
   if !activeProcessName
   {
-    logger 'cannot get window'
+    logger('アクティブウィンドウを取得できませんでした。' WinGetProcessName("A"))
     MsgBox "アクティブウィンドウを取得できませんでした。"
     return
   }
@@ -20,7 +20,6 @@ windowChangeEachApp(reverse := true) {
   activePID := WinGetPID(currentWinId)
 
   if (CURRENT_PROCESS_NAME != activeProcessName) {
-    logger "new application window"
     CURRENT_PROCESS_NAME := activeProcessName
     WIN_IDS := []
     ; 同じプロセスIDを持つすべてのウィンドウをリスト

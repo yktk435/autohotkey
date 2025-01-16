@@ -42,8 +42,8 @@ isApplication(winId) {
 
 logger(text) {
     logTime := "[" FormatTime(, "yyyy-MM-dd HH:mm:ss") "]"
-
-    FileAppend logTime " " text "`n",  "\\wsl.localhost\Docker\home\h1yokotsuka\ghq\AutoHotkey\log"
+    FileEncoding 'UTF-8'
+    FileAppend logTime " "  text "    " A_LineFile ":" A_LineNumber "`n",  "\\wsl.localhost\Docker\home\h1yokotsuka\ghq\AutoHotkey\log"
 }
 
 ; アクティブなウィンドウIDからプロセスのパスを取得する
