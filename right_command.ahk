@@ -32,13 +32,24 @@
 
 HIDEN_WINDE_IDS := {}
 PREV_WIN_ID := {}
+; 表示
+; MsgBox(APPLICATIONS["name"]) ;
+; 削除
+; myArray.RemoveAt(2) ; 2番目の要素を削除
+; 表示
+; for index, value in myArray
+; {
+;     MsgBox("Index " index ": " value)
+; }
 
 SetTitleMatchMode "RegEx"
 
 ^Space:: {
     path := "C:\Program Files\Microsoft VS Code\Code.exe"
     exe_name := "Code.exe"
-    myWinActivate("ahk_exe " exe_name)
+    myWinActivate2(path)
+    ; getWinIdFromAppPath
+    ;  myWinActivate("ahk_exe " exe_name)
     ; hideToggl("ahk_exe" exe_name)
 
     return
@@ -46,15 +57,13 @@ SetTitleMatchMode "RegEx"
 
 ^+Space:: {
     myWinActivate(".*Microsoft​ Edge$")
-; C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
-
     return
 }
 
 LAlt & Space:: {
-    myWinActivateForCommandPrompt("ahk_exe powershell.exe")
-    ; hideToggl(true, "ahk_exe WindowsTerminal.exe")
-
+    path := 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe'
+    myWinActivate("ahk_exe WindowsTerminal.exe")
+    ; myWinActivate2(path)
     return
 }
 
@@ -97,7 +106,8 @@ z:: {
     return
 }
 l:: {
-    myWinActivate("ahk_exe thunderbird.exe")
+    ; myWinActivate("ahk_exe thunderbird.exe")
+    myWinActivate("^Mail.*")
 
     return
 }
@@ -113,6 +123,15 @@ Backspace:: SendInput("{Delete}")
 
 #HotIf
 
+myWinActivate2(appPath) {
+    windowId := getWinIdFromAppPath(appPath)
+    if (windowId == 'false') {
+        Run(appPath)
+    } else {
+        WinActivate(windowId)
+    }
+}
+
 ; ターミナルの場合はクリックしないとちゃんとしたフォーカスにならない
 myWinActivate(arg*) {
     baseMyWinActivate(false, arg*)
@@ -120,6 +139,41 @@ myWinActivate(arg*) {
 
 myWinActivateForCommandPrompt(arg*) {
     baseMyWinActivate(true, arg*)
+}
+
+; -----------------------------------------------------------
+; 実行ファイルパスから最初にマッチした windowId を探す
+; -----------------------------------------------------------
+searchWindowIdfromAppPath(appPath) {
+    ; 実行中のすべてのウィンドウを調査
+    allWindowIds := WinGetList()
+
+    matchingWindowIds := []
+
+    ; 各ウィンドウをループして確認
+    for windowId in allWindowIds {
+        pid := WinGetPID("ahk_id " windowId) ; ウィンドウIDからプロセスIDを取得
+        processPath := ProcessGetPath(pid) ; プロセスIDから実行ファイルのパスを取得
+
+        if (processPath = appPath) {
+            return windowId
+        }
+    }
+
+    return false
+}
+
+; 実行ファイルを起動する
+; Run appPath
+
+; 実行ファイルが既に起動していたらそれのフォーカス・していないなら起動する
+getWinIdFromAppPath(appPath) {
+    wondowId := searchWindowIdfromAppPath(appPath)
+    if (wondowId = false) {
+        return "false"
+    }
+
+    return wondowId
 }
 
 baseMyWinActivate(requiredClick := false, arg*) {
@@ -130,13 +184,13 @@ baseMyWinActivate(requiredClick := false, arg*) {
             WinGetPos(&X, &Y, &Width, &Height, arg*)
             ;コマンドプロンプト用で作ったけど、なぜか window の高さ、幅が取得できないから決め打ちでクリック
             ; Click(((Width - X) // 2) + X, 20)
-            Click(2000 + X, 0)
+            ; Click(2000 + X, -1)
         } else {
             WinActivate(arg*)
         }
     } else {
         ; Run(arg*)
-        MsgBox "起動してないよ"
+        MsgBox "Not running"
     }
 
 }
@@ -192,7 +246,7 @@ hideToggl(requiredClick := false, arg*) {
 
 
         } else {
-            MsgBox '起動してない'
+            MsgBox 'Not running'
         }
         DetectHiddenWindows 0
 

@@ -56,29 +56,19 @@ windowChangeEachApp(reverse := true) {
   }
   logger "WIN_IDS.Length " WIN_IDS.Length
 
-  offset := 1
-  if (reverse) {
-    offset := -1
-  } else {
-
-  }
   currentIndex := searchArray(WinGetID(currentWinId), WIN_IDS)
+  targetIndex := getNextIndex(WIN_IDS, currentIndex, reverse)
 
-  nextIndex := currentIndex + offset
-  if (WIN_IDS.Length < nextIndex) {
-    nextIndex := 1
-  } else if (nextIndex <= 0) {
-    nextIndex := WIN_IDS.Length
-  }
   ; 次のウィンドウにフォーカスを移す
   try {
     ; MsgBox WinGetClass(WIN_IDS[nextIndex]) " | " WinGetTitle(WIN_IDS[nextIndex]) ' | ' WinGetProcessName(WIN_IDS[nextIndex])
-    WinActivate(WIN_IDS[nextIndex])
+    WinActivate(WIN_IDS[targetIndex])
   } catch Error as e {
     ; MsgBox "tab error"
     MsgBox e.Message
     if (e.Message == 'Target window not found') {
-
+      WIN_IDS.RemoveAt(targetIndex)
+      WinActivate(WIN_IDS[getNextIndex(WIN_IDS, currentIndex, reverse)])
 
     }
     ; MsgBox "WIN_IDS.Length: " WIN_IDS.Length
@@ -94,3 +84,30 @@ Tab:: {
   windowChangeEachApp()
 }
 #HotIf
+
+getNextIndex(array, currentIndex, reverse) {
+  offset := 1
+  if (reverse) {
+    offset := -1
+  }
+
+  nextIndex := currentIndex + offset
+  if (array.Length < nextIndex) {
+    nextIndex := 1
+  } else if (nextIndex <= 0) {
+    nextIndex := array.Length
+  }
+
+  return nextIndex
+}
+
+getWindowIds() {
+  ids := []
+  ; 同じプロセスIDを持つすべてのウィンドウをリスト
+  for _winId in WinGetList(CURRENT_PROCESS_NAME)
+  {
+    if (isApplication(_winId) && !inArray(_winId, ids)) {
+      ids.Push(_winId)
+    }
+  }
+}
