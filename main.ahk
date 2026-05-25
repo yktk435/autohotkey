@@ -6,6 +6,15 @@ KeyHistory
 
 ^!r:: Reload
 
+; 診断用: アクティブウィンドウの class / exe を表示
+^!w:: {
+    cls := WinGetClass("A")
+    exe := WinGetProcessName("A")
+    title := WinGetTitle("A")
+    inGroup := WinActive("ahk_group windowsVim") ? "YES" : "no"
+    MsgBox "class: " cls "`nexe: " exe "`ntitle: " title "`nin windowsVim group: " inGroup
+}
+
 #include Lib/functions.ahk
 #include Config/ahkGroup.ahk
 

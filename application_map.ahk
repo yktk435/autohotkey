@@ -3,6 +3,7 @@
 
 #HotIf WinActive("ahk_group windowsVim")
 
-^v:: Send "^q"
+^v:: Send "^+v"
 
 #Hotif
+

@@ -56,14 +56,26 @@ SetTitleMatchMode "RegEx"
 }
 
 ^+Space:: {
-    myWinActivate(".*Microsoft​ Edge$")
+    if WinActive("ahk_exe brave.exe") {
+        WinMinimize("ahk_exe brave.exe")
+    } else if WinExist("ahk_exe brave.exe") {
+        WinActivate("ahk_exe brave.exe")
+    } else {
+        Run "brave.exe"
+    }
     return
 }
 
 LAlt & Space:: {
-    path := 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe'
-    myWinActivate("ahk_exe WindowsTerminal.exe")
-    ; myWinActivate2(path)
+    ubuntuExe := "ubuntu.exe"
+    ubuntuPath := "C:\Program Files\WindowsApps\CanonicalGroupLimited.Ubuntu_2404.1.68.0_x64__79rhkp1fndgsc\ubuntu.exe"
+    if WinActive("ahk_exe " ubuntuExe) {
+        WinMinimize("ahk_exe " ubuntuExe)
+    } else if WinExist("ahk_exe " ubuntuExe) {
+        WinActivate("ahk_exe " ubuntuExe)
+    } else {
+        Run ubuntuPath
+    }
     return
 }
 
@@ -71,7 +83,15 @@ LAlt & Space:: {
 #HotIf GetKeyState('F14', 'P')
 
 s:: {
-    myWinActivate("ahk_exe ms-teams.exe")
+    slackExe := "Slack.exe"
+    slackPath := "C:\Program Files\WindowsApps\91750D7E.Slack_4.50.121.0_x64__8she8kybcnzg4\app\Slack.exe"
+    if WinActive("ahk_exe " slackExe) {
+        WinMinimize("ahk_exe " slackExe)
+    } else if WinExist("ahk_exe " slackExe) {
+        WinActivate("ahk_exe " slackExe)
+    } else {
+        Run slackPath
+    }
 
     return
 }
@@ -101,13 +121,28 @@ g:: {
     return
 }
 z:: {
-    myWinActivate("^ChatGPT.*")
+    claudeExe := "claude.exe"
+    claudePath := "C:\Program Files\WindowsApps\Claude_1.8555.2.0_x64__pzs8sxrjxfjjc\app\claude.exe"
+    if WinActive("ahk_exe " claudeExe) {
+        WinMinimize("ahk_exe " claudeExe)
+    } else if WinExist("ahk_exe " claudeExe) {
+        WinActivate("ahk_exe " claudeExe)
+    } else {
+        Run claudePath
+    }
 
     return
 }
 l:: {
-    ; myWinActivate("ahk_exe thunderbird.exe")
-    myWinActivate("^Mail.*")
+    sparkExe := "Spark Desktop.exe"
+    sparkPath := "C:\Users\yokot\AppData\Local\Programs\SparkDesktop\Spark Desktop.exe"
+    if WinActive("ahk_exe " sparkExe) {
+        WinMinimize("ahk_exe " sparkExe)
+    } else if WinExist("ahk_exe " sparkExe) {
+        WinActivate("ahk_exe " sparkExe)
+    } else {
+        Run sparkPath
+    }
 
     return
 }
